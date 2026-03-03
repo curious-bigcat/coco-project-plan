@@ -25,8 +25,11 @@ Use this template to structure the final plan output. Fill in all sections.
 |--------|-----|-----|
 | Cortex Code Time | {X} min | {Y} min |
 | Human Effort | {X} min | {Y} min |
+| **Total (CoCo + Human)** | **{X} min** | **{Y} min** |
 | Token Usage | {X}K | {Y}K |
 | Snowflake Credits | {X} | {Y} |
+| Human-Only Equivalent | {X} min | {Y} min |
+| **Estimated Speedup** | **{N}x faster** | **{N}x faster** |
 
 ---
 
@@ -37,10 +40,10 @@ Use this template to structure the final plan output. Fill in all sections.
 **Objective:** {What this phase accomplishes}
 **Dependencies:** {Prior phases or external dependencies}
 
-| # | Task | Type | Complexity | CoCo Time | Human Effort | Tokens (K) | Credits |
-|---|------|------|-----------|-----------|-------------|-----------|---------|
-| {id} | {description} | {type} | {S/M/C/VC} | {min-max} min | {min-max} min | {min-max}K | {min-max} |
-| ... | ... | ... | ... | ... | ... | ... | ... |
+| # | Task | Type | Complexity | CoCo Time | Human Effort | Tokens (K) | Credits | Human-Only Time |
+|---|------|------|-----------|-----------|-------------|-----------|---------|-----------------|
+| {id} | {description} | {type} | {S/M/C/VC} | {min-max} min | {min-max} min | {min-max}K | {min-max} | {min-max} |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... |
 
 **Phase Subtotal:**
 
@@ -50,6 +53,7 @@ Use this template to structure the final plan output. Fill in all sections.
 | Human Effort | {X} min | {Y} min |
 | Tokens | {X}K | {Y}K |
 | Credits | {X} | {Y} |
+| Human-Only Time | {X} min | {Y} min |
 
 {Repeat for each phase}
 
@@ -75,8 +79,32 @@ Overhead applied: {multiplier}x for {reason}.
 |--------|---------|---------|-------------|-------------|
 | Cortex Code Time | {X} min | {Y} min | {X} min ({H}h) | {Y} min ({H}h) |
 | Human Effort | {X} min | {Y} min | {X} min ({H}h) | {Y} min ({H}h) |
+| **Total CoCo+Human Time** | {X} min | {Y} min | **{X} min ({H}h)** | **{Y} min ({H}h)** |
 | Token Usage | {X}K | {Y}K | {X}K | {Y}K |
 | Snowflake Credits | {X} | {Y} | {X} | {Y} |
+
+---
+
+## Human-Only Comparison
+
+What if this project was executed entirely by human developers without Cortex Code?
+
+| Metric | With Cortex Code (Adjusted) | Human-Only (Adjusted) |
+|--------|----------------------------|----------------------|
+| Total Development Time | {X}-{Y} min ({H1}-{H2}h) | {X}-{Y} min ({H1}-{H2}h) |
+| Time Saved | — | {X}-{Y} min ({H1}-{H2}h) |
+| Speedup Factor | — | **{N1}x - {N2}x faster** |
+
+**Breakdown:**
+
+| Phase | CoCo+Human Time | Human-Only Time | Time Saved |
+|-------|----------------|-----------------|------------|
+| {Phase 1 name} | {X}-{Y} min | {X}-{Y} min | {X}-{Y} min |
+| {Phase 2 name} | {X}-{Y} min | {X}-{Y} min | {X}-{Y} min |
+| ... | ... | ... | ... |
+| **Total** | **{X}-{Y} min** | **{X}-{Y} min** | **{X}-{Y} min** |
+
+> **Key insight:** With Cortex Code, implementation is automated and humans focus on review, testing, domain input, and deployment -- reducing total project time by an estimated **{P1}%-{P2}%** compared to fully manual development.
 
 ---
 

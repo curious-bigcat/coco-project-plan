@@ -98,31 +98,42 @@ Generate a complete, end-to-end project implementation plan with per-task estima
 
 ### Step 3: Estimate Per Task
 
-**Goal:** Calculate all 4 estimates for every task using the heuristics tables.
+**Goal:** Calculate all estimates for every task using the heuristics tables, including a human-only comparison.
 
 **Actions:**
 
 1. **For each task**, look up estimates from `references/estimation-heuristics.md`:
    - **Cortex Code time** (min-max minutes)
-   - **Human effort** (min-max minutes)
+   - **Human effort with CoCo** (min-max minutes)
    - **Token usage** (min-max in thousands)
    - **Snowflake credits** (min-max)
 
-2. **Calculate phase subtotals** by summing min and max for each metric.
+2. **For each task**, also look up the **Human-Only Development Estimate** from the corresponding table:
+   - **Human-only time** (min-max, using the "Human-Only Development Estimates" table)
 
-3. **Calculate raw project totals** by summing all phase subtotals.
+3. **Calculate phase subtotals** by summing min and max for each metric (including human-only).
 
-4. **Apply overhead multipliers** based on project characteristics:
-   - If requirements are vague or incomplete: apply 1.20-1.40x rework multiplier to all
-   - If project spans multiple sessions: apply 1.10-1.20x token multiplier for context switching
-   - If patterns are new to the team: apply 1.15-1.30x to human effort and CoCo time
-   - Add flat amounts for production deployment (+15-30 min), CI/CD (+10-20 min) if applicable
+4. **Calculate raw project totals** by summing all phase subtotals.
 
-5. **Compute adjusted totals** = raw totals * applicable multipliers.
+5. **Apply overhead multipliers** based on project characteristics:
+   - **For CoCo+Human estimates:** Use the "Overhead Multipliers (Cortex Code + Human)" table
+     - If requirements are vague or incomplete: apply 1.15-1.30x rework multiplier to all
+     - If project spans multiple sessions: apply 1.10-1.20x token multiplier for context switching
+     - If patterns are new to the team: apply 1.10-1.20x to human effort and CoCo time
+     - Add flat amounts for production deployment (+10-20 min), CI/CD (+5-15 min) if applicable
+   - **For Human-Only estimates:** Use the "Human-only overhead multipliers" table
+     - Apply team coordination (1.20-1.40x), context switching (1.15-1.30x), and other applicable multipliers
+     - Add flat environment setup time (+1-4 hr) if applicable
 
-6. **Convert large minute values** to hours where > 120 min (e.g., "150 min (2.5h)").
+6. **Compute adjusted totals** = raw totals * applicable multipliers (for both CoCo and human-only).
 
-**Output:** Complete estimation data (used in next step)
+7. **Convert large minute values** to hours where > 120 min (e.g., "150 min (2.5h)").
+
+8. **Calculate the time saved and speedup ratio:**
+   - Time saved = Human-Only Adjusted Total - (CoCo Time + Human Effort with CoCo) Adjusted Total
+   - Speedup = Human-Only Adjusted Total / (CoCo Time + Human Effort with CoCo) Adjusted Total
+
+**Output:** Complete estimation data including human-only comparison (used in next step)
 
 **Next:** Immediately proceed to Step 4 (do NOT stop here)
 
@@ -137,11 +148,12 @@ Generate a complete, end-to-end project implementation plan with per-task estima
 1. **Fill in the template** with all data from Steps 1-3:
    - Project name, date, source file
    - Executive summary with adjusted total estimate ranges
-   - Per-phase task tables with ALL 4 METRICS per task row:
-     - `| # | Task | Type | Complexity | CoCo Time | Human Effort | Tokens (K) | Credits |`
+   - Per-phase task tables with ALL metrics per task row:
+     - `| # | Task | Type | Complexity | CoCo Time | Human Effort | Tokens (K) | Credits | Human-Only Time |`
    - Phase subtotals
    - Dependency graph (ASCII art)
    - Raw vs adjusted totals with overhead explanation
+   - **Human-Only Comparison section** -- side-by-side of CoCo+Human vs Human-Only totals with speedup ratio
    - Assumptions and risks
    - Recommendations
 
@@ -192,9 +204,10 @@ Generate a complete, end-to-end project implementation plan with per-task estima
 
 A complete project implementation plan in markdown containing:
 - Phased task breakdown with dependencies
-- Per-task estimates for ALL 4 metrics: CoCo time, human effort, tokens, credits
+- Per-task estimates for ALL metrics: CoCo time, human effort, tokens, credits, and human-only time
 - Phase subtotals for all metrics
 - Raw and adjusted totals with overhead multipliers explained
+- Human-Only Comparison: side-by-side totals, time saved, and speedup ratio
 - Dependency graph
 - Assumptions, risks, and recommendations
 - Disclaimer about estimate accuracy
