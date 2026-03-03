@@ -86,25 +86,6 @@ skills/project-planner/
     ├── estimation-heuristics.md          # Lookup tables for all 4 metrics by task type and complexity
     └── plan-template.md                  # Output format template
 ```
-
-## Supported Task Types
-
-The skill recognizes and estimates these task categories:
-
-- SQL Table / View DDL
-- Stored Procedure / UDF
-- dbt Model (SQL or Python)
-- dbt Tests + Schema YAML
-- Streamlit App / Page
-- Python Script / Module
-- ETL Pipeline / DAG
-- Cortex Agent Definition
-- Semantic View / Model
-- API Endpoint / Integration
-- Dynamic Table
-- Task / Schedule
-- Config / YAML / Manifest
-
 ## License
 
 MIT
